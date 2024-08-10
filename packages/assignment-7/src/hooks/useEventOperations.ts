@@ -6,6 +6,7 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const [events, setEvents] = useState<Event[]>([]);
   const toast = useToast();
 
+  // Assignment: 8주차 과제 (generateRepeatingEvents() 생성)
   const generateRepeatingEvents = (event: Event) => {
     const { date, repeat, ...rest } = event;
     const { type, interval } = repeat;

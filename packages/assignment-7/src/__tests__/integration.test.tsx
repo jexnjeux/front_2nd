@@ -486,6 +486,7 @@ describe('일정 관리 애플리케이션 통합 테스트', () => {
     });
   });
 
+  // Assignment: 8주차 과제
   describe('반복 일정 및 종료 조건', () => {
     test('매주 오전 10시에 있는 팀 회의를 캘린더에 등록할 수 있다.', async () => {
       const { user } = setup(<App />);

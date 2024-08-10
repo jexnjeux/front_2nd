@@ -142,6 +142,7 @@ function App() {
       return;
     }
 
+    // Assignment: 8주차 과제 (반복 종료일 설정 안할 시, 일정 생성 안되도록 토스트 추가)
     if (isRepeating && !repeatEndDate) {
       toast({
         title: '반복 종료일 설정을 확인해주세요.',
