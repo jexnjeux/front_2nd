@@ -8,10 +8,19 @@ import { App } from './App.tsx';
 const app = express();
 const port = 3333;
 
-app.get('*', (req, res) => {
-  const app = ReactDOMServer.renderToString(<App url={req.url}/>);
+const cache: Record<string, { html: string }> = {};
 
-  res.send(`
+app.get('*', (req, res) => {
+  const url = req.url;
+
+  const cachedEntry = cache[url];
+
+  if (cachedEntry) {
+    return res.send(cachedEntry.html);
+  }
+
+  const appHtml = ReactDOMServer.renderToString(<App url={url} />);
+  const html = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -20,10 +29,16 @@ app.get('*', (req, res) => {
       <title>Simple SSR</title>
     </head>
     <body>
-      <div id="root">${app}</div>
+      <div id="root">${appHtml}</div>
     </body>
     </html>
-  `);
+  `;
+
+  cache[url] = {
+    html,
+  };
+
+  res.send(html);
 });
 
 app.listen(port, () => {
